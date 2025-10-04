@@ -1,14 +1,8 @@
 {
   "platform": "static",
   "app": "vteemo",
-  "port": 3000,
-  "node": {
-    "version": "18"
-  },
   "build": {
-    "command": "npm install && npm run build"
-  },
-  "run": {
-    "command": "npx serve -s dist -l 3000"
+    "command": "npm install && npm run build",
+    "output": "dist"
   }
 }
