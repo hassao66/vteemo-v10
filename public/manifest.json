@@ -1,0 +1,19 @@
+{
+  "name": "Vteemo - پلتفرم اشتراکگذاری ویدیو",
+  "short_name": "Vteemo",
+  "description": "پلتفرم ویدیویی مدرن مشابه یوتیوب با امکانات پیشرفته",
+  "theme_color": "#8B5CF6",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "64x64 32x32 24x24 16x16",
+      "type": "image/x-icon",
+      "purpose": "any maskable"
+    }
+  ]
+}
