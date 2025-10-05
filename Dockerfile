@@ -1,26 +1,20 @@
-# استفاده از Node.js به عنوان base image
-FROM node:18-alpine
+# Stage 1: Build
+FROM node:20-alpine AS builder
 
-# تنظیم working directory
 WORKDIR /app
 
-# کپی کردن package files
 COPY package*.json ./
+RUN npm ci
 
-# نصب dependencies
-RUN npm ci --only=production
-
-# کپی کردن کد منبع
 COPY . .
-
-# ساخت پروژه
 RUN npm run build
 
-# نصب serve برای سرو کردن فایل‌های static
-RUN npm install -g serve
+# Stage 2: Production
+FROM nginx:alpine
 
-# تنظیم port
-EXPOSE 3000
+COPY --from=builder /app/dist /usr/share/nginx/html
+COPY nginx-docker.conf /etc/nginx/conf.d/default.conf
 
-# اجرای برنامه
-CMD ["serve", "-s", "dist", "-l", "3000"]
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
