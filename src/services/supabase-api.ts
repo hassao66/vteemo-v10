@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import type { Profile, Video, LiveStream, Wallet, Transaction } from '../lib/supabase';
+import type { Profile, Video } from '../lib/supabase';
 
 // Auth API
 export const authAPI = {
@@ -164,7 +164,7 @@ export const videosAPI = {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('User not authenticated');
 
-    const { error: deleteError } = await supabase
+    await supabase
       .from('video_interactions')
       .delete()
       .eq('user_id', user.id)
@@ -181,7 +181,7 @@ export const videosAPI = {
 
     if (error) throw error;
 
-    const { error: updateError } = await supabase.rpc('increment_video_likes', {
+    await supabase.rpc('increment_video_likes', {
       video_id: videoId,
     });
 
@@ -192,7 +192,7 @@ export const videosAPI = {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) throw new Error('User not authenticated');
 
-    const { error: deleteError } = await supabase
+    await supabase
       .from('video_interactions')
       .delete()
       .eq('user_id', user.id)
@@ -226,7 +226,7 @@ export const videosAPI = {
 
     if (error) throw error;
 
-    const { error: updateError } = await supabase
+    await supabase
       .from('videos')
       .update({ views: supabase.sql`views + 1` })
       .eq('id', videoId);

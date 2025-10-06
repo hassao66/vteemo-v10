@@ -58,7 +58,7 @@ const Sidebar: React.FC = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  const SidebarItem = ({ item, isCategory = false, onClick }: any) => {
+  const SidebarItem = ({ item, isCategory = false, onClick }: { item: { icon: React.ComponentType<{ className?: string }>, name: string, to?: string }, isCategory?: boolean, onClick?: () => void }) => {
     const IconComponent = item.icon;
     const active = isCategory ? selectedCategory === item.name : isActive(item.to);
     

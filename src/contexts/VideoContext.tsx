@@ -40,7 +40,7 @@ interface VideoContextType {
   updateVideoStatus: (id: string, status: Video['status']) => void;
   deleteVideo: (id: string) => void;
   searchVideos: (query: string) => Video[];
-  fetchVideos: (params?: any) => Promise<void>;
+  fetchVideos: (params?: { category?: string; search?: string; limit?: number }) => Promise<void>;
   likeVideo: (id: string) => Promise<void>;
   dislikeVideo: (id: string) => Promise<void>;
 }
@@ -211,7 +211,7 @@ export const VideoProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('Home');
 
-  const fetchVideos = async (params?: any) => {
+  const fetchVideos = async (params?: { category?: string; search?: string; limit?: number }) => {
     setLoading(true);
     setError(null);
     try {
@@ -219,8 +219,9 @@ export const VideoProvider: React.FC<{ children: ReactNode }> = ({ children }) =
       if (response.success && response.data?.videos) {
         setVideos(response.data.videos);
       }
-    } catch (err: any) {
-      setError(err.message || 'خطا در دریافت ویدیوها');
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || 'خطا در دریافت ویدیوها');
     } finally {
       setLoading(false);
     }
@@ -236,7 +237,7 @@ export const VideoProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             : video
         ));
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Like video error:', err);
     }
   };
@@ -251,7 +252,7 @@ export const VideoProvider: React.FC<{ children: ReactNode }> = ({ children }) =
             : video
         ));
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Dislike video error:', err);
     }
   };

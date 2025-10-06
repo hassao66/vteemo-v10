@@ -1,5 +1,4 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
-import { liveAPI } from '../services/supabase-api';
 
 interface LiveStream {
   id: string;

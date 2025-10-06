@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { 
   Wallet, CreditCard, TrendingUp, TrendingDown, DollarSign, 
-  Users, ArrowUpRight, ArrowDownLeft, Filter, Download,
-  Calendar, Search, RefreshCw, AlertCircle, CheckCircle
+  Users, ArrowUpRight, ArrowDownLeft, Download,
+  Search, RefreshCw, AlertCircle, CheckCircle
 } from 'lucide-react';
 import { useWallet } from '../../contexts/WalletContext';
 import { useLanguage } from '../../contexts/LanguageContext';
@@ -207,7 +207,7 @@ const AdminWallet: React.FC = () => {
               </div>
               <select
                 value={filterType}
-                onChange={(e) => setFilterType(e.target.value as any)}
+                onChange={(e) => setFilterType(e.target.value as 'all' | 'deposit' | 'withdrawal' | 'earning')}
                 className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-vitimo-500 focus:border-transparent dark:bg-gray-700 dark:text-white"
               >
                 <option value="all">{language === 'fa' ? 'همه تراکنش‌ها' : 'All Transactions'}</option>
