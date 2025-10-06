@@ -20,12 +20,15 @@ const Login: React.FC = () => {
         className="absolute inset-0 bg-gradient-to-br from-[#1a1035] via-[#3c0f63] to-[#0f1024]"
         aria-hidden="true"
       />
-      {/* Decorative low-opacity background image */}
-      <img
-        src="https://pub-cdn.sider.ai/u/U0GVH7NRL9J/web-coder/68e3eb13b54d8be52ab4d746/resource/4f819288-bb13-4033-a5f7-bdc25ecd4933.png"
-        alt=""
+      {/* Wave pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-20"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 50 Q 25 30, 50 50 T 100 50 L 100 100 L 0 100 Z' fill='%23ffffff' opacity='0.1'/%3E%3C/svg%3E")`,
+          backgroundSize: '100px 100px',
+          backgroundRepeat: 'repeat'
+        }}
         aria-hidden="true"
-        className="pointer-events-none select-none absolute -left-32 -bottom-40 w-[800px] opacity-10 rotate-12"
       />
 
       {/* Main content */}
