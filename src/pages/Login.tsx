@@ -1,32 +1,28 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Play, Eye, EyeOff, Crown, Wallet, Radio, Mic } from 'lucide-react';
+import { Play, Eye, EyeOff, Wallet, Radio, Mic } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, error: authError } = useAuth();
   const { t, isRTL } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
-  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     setIsLoading(true);
 
     const success = await login(formData.email, formData.password);
     
     if (success) {
       navigate('/');
-    } else {
-      setError('ایمیل یا رمز عبور اشتباه است');
     }
     setIsLoading(false);
   };
@@ -52,14 +48,11 @@ const Login: React.FC = () => {
         <div className="text-center lg:text-right space-y-8">
           <div>
             <div className="flex items-center justify-center lg:justify-end space-x-4 mb-6">
-              <div className="relative">
-                <div className="w-20 h-20 bg-gradient-vitimo rounded-2xl flex items-center justify-center shadow-vitimo">
-                  <Play className="w-12 h-12 text-white fill-current" />
-                </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-gold rounded-full flex items-center justify-center">
-                  <Crown className="w-5 h-5 text-gray-900" />
-                </div>
-              </div>
+              <img 
+                src="/logo.svg" 
+                alt="Vteemo Logo" 
+                className="w-16 h-16 md:w-20 md:h-20"
+              />
               <div>
                 <h1 className="text-5xl font-bold bg-gradient-vitimo bg-clip-text text-transparent">
                   ویتیمو
@@ -68,16 +61,16 @@ const Login: React.FC = () => {
               </div>
             </div>
             
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
               {t('login.subtitle')}
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="text-base md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
               پلتفرم ویدیویی حرفه‌ای با امکانات پیشرفته پخش زنده، پادکست و کیف پول ریالی
             </p>
           </div>
 
           {/* Features */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {features.map((feature, index) => {
               const IconComponent = feature.icon;
               return (
@@ -111,9 +104,9 @@ const Login: React.FC = () => {
               </p>
             </div>
 
-            {error && (
+            {authError && (
               <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-xl mb-6">
-                {error}
+                {authError}
               </div>
             )}
 
@@ -165,24 +158,6 @@ const Login: React.FC = () => {
                 {isLoading ? 'در حال ورود...' : t('login.signin')}
               </button>
             </form>
-
-            <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6">
-              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4 text-center">
-                {t('login.demo')}
-              </h4>
-              <div className="space-y-3">
-                <div className="bg-gradient-vitimo/10 border border-vitimo-200 dark:border-vitimo-800 p-4 rounded-xl">
-                  <p className="text-gray-700 dark:text-gray-300 text-sm">
-                    <strong className="text-vitimo-600 dark:text-vitimo-400">{t('login.admin')}:</strong> admin@vitimo.com / admin
-                  </p>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-4 rounded-xl">
-                  <p className="text-gray-700 dark:text-gray-300 text-sm">
-                    <strong className="text-gray-600 dark:text-gray-400">{t('login.user')}:</strong> user@vitimo.com / user
-                  </p>
-                </div>
-              </div>
-            </div>
 
             <div className="mt-6 text-center space-y-3">
               <button className="text-vitimo-600 dark:text-vitimo-400 hover:underline text-sm font-medium block w-full">

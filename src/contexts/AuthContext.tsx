@@ -24,6 +24,7 @@ interface AuthContextType {
   isAuthenticated: boolean;
   isAdmin: boolean;
   loading: boolean;
+  error: string;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -39,6 +40,7 @@ export const useAuth = () => {
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   useEffect(() => {
     const initAuth = async () => {
@@ -100,6 +102,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const login = async (email: string, password: string): Promise<boolean> => {
     setLoading(true);
+    setError('');
     try {
       const response = await authAPI.signIn(email, password);
       if (response.success) {
@@ -121,9 +124,17 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
         return true;
       }
+      setError('ایمیل یا رمز عبور اشتباه است');
       return false;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Login error:', error);
+      if (error.message?.includes('Invalid login credentials')) {
+        setError('ایمیل یا رمز عبور اشتباه است');
+      } else if (error.message?.includes('Email not confirmed')) {
+        setError('لطفاً ایمیل خود را تایید کنید');
+      } else {
+        setError('خطا در ورود. لطفاً دوباره تلاش کنید');
+      }
       return false;
     } finally {
       setLoading(false);
@@ -132,6 +143,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
 
   const register = async (userData: { username: string; email: string; password: string }): Promise<boolean> => {
     setLoading(true);
+    setError('');
     try {
       const response = await authAPI.signUp(
         userData.email,
@@ -158,9 +170,19 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         }
         return true;
       }
+      setError('خطا در ثبت‌نام');
       return false;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Register error:', error);
+      if (error.message?.includes('User already registered')) {
+        setError('این ایمیل قبلاً ثبت شده است');
+      } else if (error.message?.includes('Invalid email')) {
+        setError('ایمیل نامعتبر است');
+      } else if (error.message?.includes('Password')) {
+        setError('رمز عبور باید حداقل ۶ کاراکتر باشد');
+      } else {
+        setError('خطا در ثبت‌نام. لطفاً دوباره تلاش کنید');
+      }
       return false;
     } finally {
       setLoading(false);
@@ -179,7 +201,8 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     logout,
     isAuthenticated: !!user,
     isAdmin: user?.isAdmin || false,
-    loading
+    loading,
+    error
   };
 
   return (

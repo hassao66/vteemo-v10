@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Youtube, BarChart3, Users, Video, LogOut, Home } from 'lucide-react';
+import { BarChart3, Users, Video, LogOut, Home } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
 interface AdminLayoutProps {
@@ -42,7 +42,11 @@ const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
       <aside className="w-64 bg-gray-800 border-r border-gray-700">
         <div className="p-6">
           <div className="flex items-center space-x-2 mb-8">
-            <Youtube className="w-8 h-8 text-red-500" />
+            <img 
+              src="/logo.svg" 
+              alt="Vteemo Logo" 
+              className="w-8 h-8"
+            />
             <div>
               <span className="text-xl font-bold text-white">ویتیمو</span>
               <p className="text-xs text-gray-400">داشبورد مدیریت</p>

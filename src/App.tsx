@@ -13,6 +13,7 @@ import Upload from './pages/Upload';
 import Profile from './pages/Profile';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import RegisterPhone from './pages/RegisterPhone';
 import Premium from './pages/Premium';
 import Rewards from './pages/Rewards';
 import Wallet from './pages/Wallet';
@@ -39,6 +40,7 @@ function App() {
                 <Routes>
                   <Route path="/login" element={<Login />} />
                   <Route path="/register" element={<Register />} />
+                  <Route path="/register/phone" element={<RegisterPhone />} />
                   <Route path="/admin/*" element={
                     <AdminLayout>
                       <Routes>

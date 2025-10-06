@@ -88,9 +88,6 @@ const translations = {
     'login.signin': 'ورود',
     'login.signup': 'ثبت نام',
     'login.forgotPassword': 'فراموشی رمز عبور',
-    'login.demo': 'حساب‌های نمونه:',
-    'login.admin': 'مدیر',
-    'login.user': 'کاربر',
     
     // Premium
     'premium.title': 'اشتراک ویژه ویتیمو',

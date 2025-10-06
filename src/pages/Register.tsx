@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Play, Eye, EyeOff, Crown, UserPlus } from 'lucide-react';
+import { Eye, EyeOff, UserPlus } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
-  const { register } = useAuth();
+  const { register, error: authError } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
@@ -40,8 +40,6 @@ const Register: React.FC = () => {
 
     if (success) {
       navigate('/');
-    } else {
-      setError('خطا در ثبت‌نام. لطفاً دوباره تلاش کنید');
     }
     setIsLoading(false);
   };
@@ -58,14 +56,11 @@ const Register: React.FC = () => {
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-4 mb-6">
-            <div className="relative">
-              <div className="w-16 h-16 bg-gradient-vitimo rounded-2xl flex items-center justify-center shadow-vitimo">
-                <Play className="w-10 h-10 text-white fill-current" />
-              </div>
-              <div className="absolute -top-2 -right-2 w-6 h-6 bg-gradient-gold rounded-full flex items-center justify-center">
-                <Crown className="w-4 h-4 text-gray-900" />
-              </div>
-            </div>
+            <img 
+              src="/logo.svg" 
+              alt="Vteemo Logo" 
+              className="w-14 h-14 md:w-16 md:h-16"
+            />
             <div>
               <h1 className="text-4xl font-bold bg-gradient-vitimo bg-clip-text text-transparent">
                 ویتیمو
@@ -88,9 +83,9 @@ const Register: React.FC = () => {
             </p>
           </div>
 
-          {error && (
+          {(error || authError) && (
             <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-xl mb-6">
-              {error}
+              {error || authError}
             </div>
           )}
 
@@ -173,11 +168,16 @@ const Register: React.FC = () => {
             </button>
           </form>
 
-          <div className="mt-6 text-center">
+          <div className="mt-6 text-center space-y-3">
             <p className="text-gray-600 dark:text-gray-400">
               قبلاً ثبت‌نام کرده‌اید؟{' '}
               <Link to="/login" className="text-vitimo-600 dark:text-vitimo-400 hover:underline font-medium">
                 وارد شوید
+              </Link>
+            </p>
+            <p className="text-gray-600 dark:text-gray-400">
+              <Link to="/register/phone" className="text-vitimo-600 dark:text-vitimo-400 hover:underline font-medium">
+                ثبت‌نام با شماره موبایل
               </Link>
             </p>
           </div>
