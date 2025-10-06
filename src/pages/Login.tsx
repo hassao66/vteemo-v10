@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { Play, Eye, EyeOff, Crown, Wallet, Radio, Mic } from 'lucide-react';
+import { Play, Eye, EyeOff, Wallet, Radio, Mic } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 

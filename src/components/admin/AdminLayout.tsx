@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Youtube, BarChart3, Users, Video, LogOut, Home } from 'lucide-react';
+import { BarChart3, Users, Video, LogOut, Home } from 'lucide-react';
 import { useAuth } from '../../contexts/AuthContext';
 
 interface AdminLayoutProps {
