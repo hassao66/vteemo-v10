@@ -52,14 +52,11 @@ const Login: React.FC = () => {
         <div className="text-center lg:text-right space-y-8">
           <div>
             <div className="flex items-center justify-center lg:justify-end space-x-4 mb-6">
-              <div className="relative">
-                <div className="w-20 h-20 bg-gradient-vitimo rounded-2xl flex items-center justify-center shadow-vitimo">
-                  <Play className="w-12 h-12 text-white fill-current" />
-                </div>
-                <div className="absolute -top-2 -right-2 w-8 h-8 bg-gradient-gold rounded-full flex items-center justify-center">
-                  <Crown className="w-5 h-5 text-gray-900" />
-                </div>
-              </div>
+              <img 
+                src="/logo.svg" 
+                alt="Vteemo Logo" 
+                className="w-16 h-16 md:w-20 md:h-20"
+              />
               <div>
                 <h1 className="text-5xl font-bold bg-gradient-vitimo bg-clip-text text-transparent">
                   ویتیمو
@@ -165,24 +162,6 @@ const Login: React.FC = () => {
                 {isLoading ? 'در حال ورود...' : t('login.signin')}
               </button>
             </form>
-
-            <div className="mt-8 border-t border-gray-200 dark:border-gray-700 pt-6">
-              <h4 className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-4 text-center">
-                {t('login.demo')}
-              </h4>
-              <div className="space-y-3">
-                <div className="bg-gradient-vitimo/10 border border-vitimo-200 dark:border-vitimo-800 p-4 rounded-xl">
-                  <p className="text-gray-700 dark:text-gray-300 text-sm">
-                    <strong className="text-vitimo-600 dark:text-vitimo-400">{t('login.admin')}:</strong> admin@vitimo.com / admin
-                  </p>
-                </div>
-                <div className="bg-gray-50 dark:bg-gray-700 border border-gray-200 dark:border-gray-600 p-4 rounded-xl">
-                  <p className="text-gray-700 dark:text-gray-300 text-sm">
-                    <strong className="text-gray-600 dark:text-gray-400">{t('login.user')}:</strong> user@vitimo.com / user
-                  </p>
-                </div>
-              </div>
-            </div>
 
             <div className="mt-6 text-center space-y-3">
               <button className="text-vitimo-600 dark:text-vitimo-400 hover:underline text-sm font-medium block w-full">

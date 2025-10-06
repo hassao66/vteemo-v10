@@ -17,6 +17,7 @@ const Header: React.FC = () => {
   const { t, isRTL } = useLanguage();
   const navigate = useNavigate();
   const [showUserMenu, setShowUserMenu] = useState(false);
+  const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   const handleSearch = (e: React.FormEvent) => {
@@ -46,18 +47,18 @@ const Header: React.FC = () => {
       <div className="flex items-center justify-between max-w-7xl mx-auto">
         {/* Logo and Menu */}
         <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse' : ''}`}>
-          <button className="p-2 hover:bg-dark-tertiary rounded-lg transition-colors lg:hidden">
+          <button 
+            onClick={() => setShowMobileMenu(!showMobileMenu)}
+            className="p-2 hover:bg-dark-tertiary rounded-lg transition-colors lg:hidden"
+          >
             <Menu className="w-5 h-5 text-white" />
           </button>
           <Link to="/" className={`flex items-center space-x-3 ${isRTL ? 'space-x-reverse' : ''}`}>
-            <div className="relative">
-              <div className="w-10 h-10 bg-gradient-purple rounded-xl flex items-center justify-center shadow-purple">
-                <Play className="w-6 h-6 text-white fill-current" />
-              </div>
-              <div className="absolute -top-1 -right-1 w-4 h-4 bg-gradient-gold rounded-full flex items-center justify-center">
-                <Crown className="w-2.5 h-2.5 text-gray-900" />
-              </div>
-            </div>
+            <img 
+              src="/logo.svg" 
+              alt="Vteemo Logo" 
+              className="w-10 h-10"
+            />
             <div>
               <span className="text-2xl font-bold text-white">
                 ویتیمو
@@ -254,6 +255,89 @@ const Header: React.FC = () => {
           )}
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {showMobileMenu && (
+        <div className="lg:hidden fixed inset-0 bg-black/50 z-50" onClick={() => setShowMobileMenu(false)}>
+          <div 
+            className="bg-gray-800 w-64 h-full p-6 space-y-4"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-white font-bold text-lg">منو</h3>
+              <button onClick={() => setShowMobileMenu(false)} className="text-gray-400 hover:text-white">
+                ✕
+              </button>
+            </div>
+            
+            {isAuthenticated ? (
+              <>
+                <Link
+                  to="/upload"
+                  className="flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <Upload className="w-5 h-5" />
+                  <span>{t('header.upload')}</span>
+                </Link>
+                <Link
+                  to="/live"
+                  className="flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <Radio className="w-5 h-5" />
+                  <span>{t('header.live')}</span>
+                </Link>
+                <Link
+                  to="/wallet"
+                  className="flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <Wallet className="w-5 h-5" />
+                  <span>{t('header.wallet')}</span>
+                </Link>
+                <Link
+                  to="/premium"
+                  className="flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors"
+                  onClick={() => setShowMobileMenu(false)}
+                >
+                  <Crown className="w-5 h-5" />
+                  <span>پریمیوم</span>
+                </Link>
+                {isAdmin && (
+                  <Link
+                    to="/admin"
+                    className="flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors"
+                    onClick={() => setShowMobileMenu(false)}
+                  >
+                    <Settings className="w-5 h-5" />
+                    <span>{t('header.admin')}</span>
+                  </Link>
+                )}
+                <div className="border-t border-gray-700 my-4"></div>
+                <button
+                  onClick={() => {
+                    handleLogout();
+                    setShowMobileMenu(false);
+                  }}
+                  className="flex items-center space-x-3 text-red-400 hover:text-red-300 transition-colors w-full"
+                >
+                  <span>{t('header.signout')}</span>
+                </button>
+              </>
+            ) : (
+              <Link
+                to="/login"
+                className="flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors"
+                onClick={() => setShowMobileMenu(false)}
+              >
+                <User className="w-5 h-5" />
+                <span>{t('header.signin')}</span>
+              </Link>
+            )}
+          </div>
+        </div>
+      )}
     </header>
   );
 };
