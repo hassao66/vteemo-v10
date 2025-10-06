@@ -260,7 +260,7 @@ const Header: React.FC = () => {
       {showMobileMenu && (
         <div className="lg:hidden fixed inset-0 bg-black/50 z-50" onClick={() => setShowMobileMenu(false)}>
           <div 
-            className="bg-gray-800 w-64 h-full p-6 space-y-4"
+            className={`bg-gray-800 w-64 h-full p-6 space-y-4 ${isRTL ? 'mr-auto' : 'ml-auto'}`}
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between mb-6">
@@ -274,7 +274,7 @@ const Header: React.FC = () => {
               <>
                 <Link
                   to="/upload"
-                  className="flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors"
+                  className={`flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors ${isRTL ? 'space-x-reverse' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   <Upload className="w-5 h-5" />
@@ -282,7 +282,7 @@ const Header: React.FC = () => {
                 </Link>
                 <Link
                   to="/live"
-                  className="flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors"
+                  className={`flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors ${isRTL ? 'space-x-reverse' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   <Radio className="w-5 h-5" />
@@ -290,7 +290,7 @@ const Header: React.FC = () => {
                 </Link>
                 <Link
                   to="/wallet"
-                  className="flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors"
+                  className={`flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors ${isRTL ? 'space-x-reverse' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   <Wallet className="w-5 h-5" />
@@ -298,7 +298,7 @@ const Header: React.FC = () => {
                 </Link>
                 <Link
                   to="/premium"
-                  className="flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors"
+                  className={`flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors ${isRTL ? 'space-x-reverse' : ''}`}
                   onClick={() => setShowMobileMenu(false)}
                 >
                   <Crown className="w-5 h-5" />
@@ -307,7 +307,7 @@ const Header: React.FC = () => {
                 {isAdmin && (
                   <Link
                     to="/admin"
-                    className="flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors"
+                    className={`flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors ${isRTL ? 'space-x-reverse' : ''}`}
                     onClick={() => setShowMobileMenu(false)}
                   >
                     <Settings className="w-5 h-5" />
@@ -320,7 +320,7 @@ const Header: React.FC = () => {
                     handleLogout();
                     setShowMobileMenu(false);
                   }}
-                  className="flex items-center space-x-3 text-red-400 hover:text-red-300 transition-colors w-full"
+                  className={`flex items-center space-x-3 text-red-400 hover:text-red-300 transition-colors w-full ${isRTL ? 'space-x-reverse' : ''}`}
                 >
                   <span>{t('header.signout')}</span>
                 </button>
@@ -328,7 +328,7 @@ const Header: React.FC = () => {
             ) : (
               <Link
                 to="/login"
-                className="flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors"
+                className={`flex items-center space-x-3 text-white hover:text-vitimo-400 transition-colors ${isRTL ? 'space-x-reverse' : ''}`}
                 onClick={() => setShowMobileMenu(false)}
               >
                 <User className="w-5 h-5" />
