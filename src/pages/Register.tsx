@@ -55,18 +55,15 @@ const Register: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-purple-50 to-gold-50 dark:from-gray-900 dark:via-purple-900 dark:to-gray-900 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center space-x-4 mb-6">
+          <div className="flex flex-col items-center mb-6">
             <img 
               src="/logo.svg" 
               alt="Vteemo Logo" 
-              className="w-14 h-14 md:w-16 md:h-16"
+              className="w-14 h-14 md:w-16 md:h-16 mb-3"
             />
-            <div>
-              <h1 className="text-4xl font-bold bg-gradient-vitimo bg-clip-text text-transparent">
-                ویتیمو
-              </h1>
-              <p className="text-gold-600 font-bold">Premium Video Platform</p>
-            </div>
+            <h1 className="text-3xl md:text-4xl font-bold text-white">
+              ویتیمو
+            </h1>
           </div>
         </div>
 
