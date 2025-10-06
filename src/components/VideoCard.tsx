@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  CheckCircle, Crown, Play, Clock, Eye, Heart,
-  Share, Download, MoreVertical, Bookmark
+  Crown, Play, Clock, Eye, Heart,
+  Share, Download, Bookmark
 } from 'lucide-react';
 import type { Video } from '../lib/supabase';
 import { useLanguage } from '../contexts/LanguageContext';

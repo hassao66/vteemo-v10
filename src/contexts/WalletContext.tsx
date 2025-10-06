@@ -80,8 +80,9 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       if (response.success && response.data?.balance !== undefined) {
         setBalance(response.data.balance);
       }
-    } catch (err: any) {
-      setError(err.message || 'خطا در دریافت موجودی');
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || 'خطا در دریافت موجودی');
     } finally {
       setLoading(false);
     }
@@ -95,8 +96,9 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       if (response.success && response.data?.transactions) {
         setTransactions(response.data.transactions);
       }
-    } catch (err: any) {
-      setError(err.message || 'خطا در دریافت تراکنش‌ها');
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || 'خطا در دریافت تراکنش‌ها');
     } finally {
       setLoading(false);
     }
@@ -113,8 +115,9 @@ export const WalletProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         return true;
       }
       return false;
-    } catch (err: any) {
-      setError(err.message || 'خطا در واریز');
+    } catch (err: unknown) {
+      const error = err as { message?: string };
+      setError(error.message || 'خطا در واریز');
       return false;
     } finally {
       setLoading(false);

@@ -1,11 +1,11 @@
 import React from 'react';
 import { 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
   LineChart, Line, PieChart, Pie, Cell, AreaChart, Area 
 } from 'recharts';
 import { 
-  Users, Video, Eye, TrendingUp, DollarSign, Radio, 
-  Mic, Crown, Wallet, Play, Calendar 
+  Users, Video, Eye, DollarSign, Radio, 
+  Crown, Wallet
 } from 'lucide-react';
 import { useVideo } from '../../contexts/VideoContext';
 import { useWallet } from '../../contexts/WalletContext';
@@ -17,7 +17,6 @@ const AdminDashboard: React.FC = () => {
   const { liveStreams } = useLive();
 
   const totalVideos = videos.length;
-  const publishedVideos = videos.filter(v => v.status === 'published').length;
   const pendingVideos = videos.filter(v => v.status === 'pending').length;
   const totalViews = videos.reduce((sum, video) => sum + video.views, 0);
   const totalEarnings = videos.reduce((sum, video) => sum + (video.earnings || 0), 0);
@@ -250,7 +249,7 @@ const AdminDashboard: React.FC = () => {
                   borderRadius: '12px',
                   color: '#F9FAFB'
                 }}
-                formatter={(value: any) => [`${formatCurrency(value)} ریال`, 'درآمد']}
+                formatter={(value: number) => [`${formatCurrency(value)} ریال`, 'درآمد']}
               />
               <Line type="monotone" dataKey="earnings" stroke="#FFD700" strokeWidth={3} />
             </LineChart>

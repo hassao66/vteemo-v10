@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   Play, Pause, Volume2, VolumeX, Maximize, Minimize,
-  Settings, SkipBack, SkipForward, PictureInPicture,
-  Download, Share, Heart, MessageCircle
+  Settings, SkipBack, SkipForward, PictureInPicture
 } from 'lucide-react';
 
 interface VideoPlayerProps {
@@ -32,8 +31,6 @@ const VideoPlayer: React.FC<VideoPlayerProps> = ({ video, autoplay = false }) =>
   const [playbackRate, setPlaybackRate] = useState(1);
   const [quality, setQuality] = useState('1080p');
   const [showSettings, setShowSettings] = useState(false);
-  const [showSubtitles, setShowSubtitles] = useState(false);
-  const [selectedSubtitle, setSelectedSubtitle] = useState('');
 
   const qualities = ['144p', '240p', '360p', '480p', '720p', '1080p', '1440p', '2160p'];
   const playbackRates = [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2];

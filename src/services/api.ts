@@ -2,11 +2,11 @@
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
 
 // API Response interface
-interface ApiResponse<T = any> {
+interface ApiResponse<T = unknown> {
   success: boolean;
   message?: string;
   data?: T;
-  errors?: any[];
+  errors?: { message: string; field?: string }[];
 }
 
 // HTTP Client class
@@ -74,7 +74,7 @@ class ApiClient {
   }
 
   // POST request
-  async post<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
+  async post<T>(endpoint: string, data?: unknown): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {
       method: 'POST',
       body: data ? JSON.stringify(data) : undefined,
@@ -82,7 +82,7 @@ class ApiClient {
   }
 
   // PUT request
-  async put<T>(endpoint: string, data?: any): Promise<ApiResponse<T>> {
+  async put<T>(endpoint: string, data?: unknown): Promise<ApiResponse<T>> {
     return this.request<T>(endpoint, {
       method: 'PUT',
       body: data ? JSON.stringify(data) : undefined,
@@ -187,7 +187,7 @@ export const videosAPI = {
 
   uploadVideo: (formData: FormData) => apiClient.upload('/videos', formData),
 
-  updateVideo: (id: string, data: any) => apiClient.put(`/videos/${id}`, data),
+  updateVideo: (id: string, data: { title?: string; description?: string; category?: string; tags?: string[] }) => apiClient.put(`/videos/${id}`, data),
 
   deleteVideo: (id: string) => apiClient.delete(`/videos/${id}`),
 
@@ -204,7 +204,7 @@ export const videosAPI = {
 export const usersAPI = {
   getProfile: (id: string) => apiClient.get(`/users/${id}`),
 
-  updateProfile: (data: any) => apiClient.put('/users/profile', data),
+  updateProfile: (data: { username?: string; avatar?: string; bio?: string }) => apiClient.put('/users/profile', data),
 
   subscribe: (id: string) => apiClient.post(`/users/${id}/subscribe`),
 
@@ -266,7 +266,7 @@ export const adminAPI = {
 };
 
 // Error handling utility
-export const handleApiError = (error: any) => {
+export const handleApiError = (error: { response?: { status?: number }; message?: string }) => {
   if (error.response?.status === 401) {
     // Token expired or invalid
     apiClient.setToken(null);

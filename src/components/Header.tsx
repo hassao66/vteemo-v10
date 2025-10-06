@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { 
   Search, Upload, Bell, User, Menu, Gift, 
-  Wallet, Radio, Mic, Settings, Moon, Sun, Crown
+  Wallet, Radio, Settings, Moon, Sun, Crown
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useVideo } from '../contexts/VideoContext';

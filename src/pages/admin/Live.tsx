@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { 
-  Radio, Users, Eye, Clock, Settings, Play, Square, 
-  Mic, MicOff, Video, VideoOff, Monitor, Smartphone,
-  TrendingUp, DollarSign, MessageCircle, Heart
+  Radio, Users, Eye, Clock, Settings, Square, 
+  Monitor, DollarSign, MessageCircle
 } from 'lucide-react';
 import { useLive } from '../../contexts/LiveContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 const AdminLive: React.FC = () => {
   const { liveStreams, createLiveStream, endLiveStream } = useLive();
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newStreamTitle, setNewStreamTitle] = useState('');
   const [newStreamDescription, setNewStreamDescription] = useState('');

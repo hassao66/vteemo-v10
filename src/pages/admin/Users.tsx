@@ -102,7 +102,7 @@ const AdminUsers: React.FC = () => {
         <div className="flex items-center space-x-4">
           <select
             value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value as any)}
+            onChange={(e) => setStatusFilter(e.target.value as 'all' | 'active' | 'suspended' | 'premium')}
             className="bg-gray-700 border border-gray-600 text-white px-3 py-2 rounded-lg focus:outline-none focus:border-red-500"
           >
             <option value="all">All Users</option>

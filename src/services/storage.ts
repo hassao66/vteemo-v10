@@ -12,8 +12,7 @@ export class StorageService {
    */
   static async uploadVideo(
     file: File,
-    userId: string,
-    onProgress?: (progress: UploadProgress) => void
+    userId: string
   ): Promise<{ success: boolean; url?: string; error?: string }> {
     try {
       // Validate file type
@@ -39,8 +38,8 @@ export class StorageService {
       const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
       const filePath = `${userId}/${fileName}`;
 
-      // Upload with progress tracking
-      const { data, error } = await supabase.storage
+      // Upload file
+      const { error } = await supabase.storage
         .from('videos')
         .upload(filePath, file, {
           cacheControl: '3600',
@@ -64,7 +63,7 @@ export class StorageService {
         success: true,
         url: publicUrl
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Upload exception:', error);
       return {
         success: false,
@@ -105,7 +104,7 @@ export class StorageService {
       const filePath = `${userId}/${fileName}`;
 
       // Upload file
-      const { data, error } = await supabase.storage
+      const { error } = await supabase.storage
         .from('thumbnails')
         .upload(filePath, file, {
           cacheControl: '3600',
@@ -129,7 +128,7 @@ export class StorageService {
         success: true,
         url: publicUrl
       };
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Thumbnail upload exception:', error);
       return {
         success: false,
@@ -155,10 +154,11 @@ export class StorageService {
       }
 
       return { success: true };
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const err = error as { message?: string };
       return {
         success: false,
-        error: error.message
+        error: err.message
       };
     }
   }
@@ -180,10 +180,11 @@ export class StorageService {
       }
 
       return { success: true };
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const err = error as { message?: string };
       return {
         success: false,
-        error: error.message
+        error: err.message
       };
     }
   }

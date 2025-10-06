@@ -1,14 +1,23 @@
 import React, { useState } from 'react';
 import { Mic, Play, Pause, SkipBack, SkipForward, Volume2, Heart, Share, Download } from 'lucide-react';
 import PodcastCard from '../components/PodcastCard';
-import { useLanguage } from '../contexts/LanguageContext';
+
+interface Podcast {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail: string;
+  host: string;
+  episodes: number;
+  duration: string;
+  category: string;
+}
 
 const Podcasts: React.FC = () => {
-  const { t } = useLanguage();
-  const [currentPodcast, setCurrentPodcast] = useState<any>(null);
+  const [currentPodcast, setCurrentPodcast] = useState<Podcast | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(2730); // 45:30 in seconds
+  const duration = 2730; // 45:30 in seconds
 
   const podcasts = [
     {

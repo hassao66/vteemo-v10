@@ -126,11 +126,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
       setError('ایمیل یا رمز عبور اشتباه است');
       return false;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const err = error as { message?: string };
       console.error('Login error:', error);
-      if (error.message?.includes('Invalid login credentials')) {
+      if (err.message?.includes('Invalid login credentials')) {
         setError('ایمیل یا رمز عبور اشتباه است');
-      } else if (error.message?.includes('Email not confirmed')) {
+      } else if (err.message?.includes('Email not confirmed')) {
         setError('لطفاً ایمیل خود را تایید کنید');
       } else {
         setError('خطا در ورود. لطفاً دوباره تلاش کنید');
@@ -172,11 +173,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
       setError('خطا در ثبت‌نام');
       return false;
-    } catch (error: any) {
+    } catch (error: unknown) {
+      const err = error as { message?: string };
       console.error('Register error:', error);
-      if (error.message?.includes('User already registered')) {
+      if (err.message?.includes('User already registered')) {
         setError('این ایمیل قبلاً ثبت شده است');
-      } else if (error.message?.includes('Invalid email')) {
+      } else if (err.message?.includes('Invalid email')) {
         setError('ایمیل نامعتبر است');
       } else if (error.message?.includes('Password')) {
         setError('رمز عبور باید حداقل ۶ کاراکتر باشد');
