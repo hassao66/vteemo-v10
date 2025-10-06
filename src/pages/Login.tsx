@@ -34,17 +34,17 @@ const Login: React.FC = () => {
       {/* Main content */}
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-10 lg:py-14">
         <div className="grid grid-cols-1 gap-10 items-center lg:grid-cols-2">
-          {/* Left column: Login form */}
-          <div>
-            <AuthForm />
-          </div>
-
-          {/* Right column: Brand + title + features */}
-          <div className="text-right">
+          {/* Right column (in RTL): Brand + title + features */}
+          <div className="text-right lg:order-2">
             <BrandHeader />
             <div className="mt-8">
               <FeatureGrid />
             </div>
+          </div>
+
+          {/* Left column (in RTL): Login form */}
+          <div className="lg:order-1">
+            <AuthForm />
           </div>
         </div>
       </div>
