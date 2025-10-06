@@ -5,7 +5,7 @@ import { useAuth } from '../contexts/AuthContext';
 
 const Register: React.FC = () => {
   const navigate = useNavigate();
-  const { register } = useAuth();
+  const { register, error: authError } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     username: '',
@@ -40,8 +40,6 @@ const Register: React.FC = () => {
 
     if (success) {
       navigate('/');
-    } else {
-      setError('خطا در ثبت‌نام. لطفاً دوباره تلاش کنید');
     }
     setIsLoading(false);
   };
@@ -85,9 +83,9 @@ const Register: React.FC = () => {
             </p>
           </div>
 
-          {error && (
+          {(error || authError) && (
             <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-xl mb-6">
-              {error}
+              {error || authError}
             </div>
           )}
 

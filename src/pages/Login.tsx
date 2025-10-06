@@ -6,27 +6,23 @@ import { useLanguage } from '../contexts/LanguageContext';
 
 const Login: React.FC = () => {
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, error: authError } = useAuth();
   const { t, isRTL } = useLanguage();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: ''
   });
-  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     setIsLoading(true);
 
     const success = await login(formData.email, formData.password);
     
     if (success) {
       navigate('/');
-    } else {
-      setError('ایمیل یا رمز عبور اشتباه است');
     }
     setIsLoading(false);
   };
@@ -65,16 +61,16 @@ const Login: React.FC = () => {
               </div>
             </div>
             
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
               {t('login.subtitle')}
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+            <p className="text-base md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
               پلتفرم ویدیویی حرفه‌ای با امکانات پیشرفته پخش زنده، پادکست و کیف پول ریالی
             </p>
           </div>
 
           {/* Features */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {features.map((feature, index) => {
               const IconComponent = feature.icon;
               return (
@@ -108,9 +104,9 @@ const Login: React.FC = () => {
               </p>
             </div>
 
-            {error && (
+            {authError && (
               <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 text-red-700 dark:text-red-300 px-4 py-3 rounded-xl mb-6">
-                {error}
+                {authError}
               </div>
             )}
 
