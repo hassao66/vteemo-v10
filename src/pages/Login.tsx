@@ -47,18 +47,15 @@ const Login: React.FC = () => {
         {/* Left Side - Branding */}
         <div className="text-center lg:text-right space-y-8">
           <div>
-            <div className="flex items-center justify-center lg:justify-end space-x-4 mb-6">
+            <div className="flex flex-col items-center lg:items-end mb-6">
               <img 
                 src="/logo.svg" 
                 alt="Vteemo Logo" 
-                className="w-16 h-16 md:w-20 md:h-20"
+                className="w-16 h-16 md:w-20 md:h-20 mb-3"
               />
-              <div>
-                <h1 className="text-5xl font-bold bg-gradient-vitimo bg-clip-text text-transparent">
-                  ویتیمو
-                </h1>
-                <p className="text-gold-600 font-bold text-lg">Premium Video Platform</p>
-              </div>
+              <h1 className="text-3xl md:text-4xl font-bold text-white">
+                ویتیمو
+              </h1>
             </div>
             
             <h2 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-4">
