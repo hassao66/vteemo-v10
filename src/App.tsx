@@ -7,6 +7,7 @@ import { WalletProvider } from './contexts/WalletContext';
 import { LiveProvider } from './contexts/LiveContext';
 import Layout from './components/Layout';
 import AdminLayout from './components/admin/AdminLayout';
+import ProtectedRoute from './components/ProtectedRoute';
 import Home from './pages/Home';
 import Watch from './pages/Watch';
 import Upload from './pages/Upload';
@@ -42,33 +43,37 @@ function App() {
                   <Route path="/register" element={<Register />} />
                   <Route path="/register/phone" element={<RegisterPhone />} />
                   <Route path="/admin/*" element={
-                    <AdminLayout>
-                      <Routes>
-                        <Route path="/" element={<AdminDashboard />} />
-                        <Route path="/users" element={<AdminUsers />} />
-                        <Route path="/videos" element={<AdminVideos />} />
-                        <Route path="/analytics" element={<AdminAnalytics />} />
-                        <Route path="/live" element={<AdminLive />} />
-                        <Route path="/wallet" element={<AdminWallet />} />
-                      </Routes>
-                    </AdminLayout>
+                    <ProtectedRoute requireAdmin={true}>
+                      <AdminLayout>
+                        <Routes>
+                          <Route path="/" element={<AdminDashboard />} />
+                          <Route path="/users" element={<AdminUsers />} />
+                          <Route path="/videos" element={<AdminVideos />} />
+                          <Route path="/analytics" element={<AdminAnalytics />} />
+                          <Route path="/live" element={<AdminLive />} />
+                          <Route path="/wallet" element={<AdminWallet />} />
+                        </Routes>
+                      </AdminLayout>
+                    </ProtectedRoute>
                   } />
                   <Route path="/*" element={
-                    <Layout>
-                      <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/watch/:id" element={<Watch />} />
-                        <Route path="/upload" element={<Upload />} />
-                        <Route path="/profile/:id" element={<Profile />} />
-                        <Route path="/premium" element={<Premium />} />
-                        <Route path="/rewards" element={<Rewards />} />
-                        <Route path="/wallet" element={<Wallet />} />
-                        <Route path="/live" element={<Live />} />
-                        <Route path="/podcasts" element={<Podcasts />} />
-                        <Route path="/playlists" element={<Playlists />} />
-                        <Route path="/search" element={<Search />} />
-                      </Routes>
-                    </Layout>
+                    <ProtectedRoute>
+                      <Layout>
+                        <Routes>
+                          <Route path="/" element={<Home />} />
+                          <Route path="/watch/:id" element={<Watch />} />
+                          <Route path="/upload" element={<Upload />} />
+                          <Route path="/profile/:id" element={<Profile />} />
+                          <Route path="/premium" element={<Premium />} />
+                          <Route path="/rewards" element={<Rewards />} />
+                          <Route path="/wallet" element={<Wallet />} />
+                          <Route path="/live" element={<Live />} />
+                          <Route path="/podcasts" element={<Podcasts />} />
+                          <Route path="/playlists" element={<Playlists />} />
+                          <Route path="/search" element={<Search />} />
+                        </Routes>
+                      </Layout>
+                    </ProtectedRoute>
                   } />
                 </Routes>
               </div>

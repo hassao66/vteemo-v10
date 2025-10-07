@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { authAPI } from '../services/supabase-api';
-import { supabase } from '../lib/supabase';
+import { authAPIService } from '../services/auth-api.service';
 
 interface User {
   id: string;
@@ -18,7 +17,7 @@ interface User {
 
 interface AuthContextType {
   user: User | null;
-  login: (email: string, password: string) => Promise<boolean>;
+  login: (identifier: string, password: string) => Promise<boolean>;
   register: (userData: { username: string; email: string; password: string }) => Promise<boolean>;
   logout: () => void;
   isAuthenticated: boolean;
@@ -45,20 +44,21 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   useEffect(() => {
     const initAuth = async () => {
       try {
-        const { data } = await authAPI.getCurrentUser();
-        if (data?.profile) {
+        const response = await authAPIService.getCurrentUser();
+        if (response.success && response.data?.user) {
+          const userData = response.data.user;
           setUser({
-            id: data.profile.id,
-            username: data.profile.username,
-            email: data.user?.email || '',
-            avatar: data.profile.avatar_url || '',
-            isAdmin: false,
-            subscribers: data.profile.subscriber_count,
-            verified: false,
-            joinDate: data.profile.created_at,
-            totalViews: 0,
-            totalVideos: 0,
-            isPremium: data.profile.is_premium
+            id: userData.id,
+            username: userData.username,
+            email: userData.email || '',
+            avatar: userData.avatar || '',
+            isAdmin: userData.isAdmin || false,
+            subscribers: userData.subscribers || 0,
+            verified: userData.verified || false,
+            joinDate: userData.joinDate || new Date().toISOString(),
+            totalViews: userData.totalViews || 0,
+            totalVideos: userData.totalVideos || 0,
+            isPremium: userData.isPremium || false
           });
         }
       } catch (error) {
@@ -69,69 +69,38 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     };
 
     initAuth();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      (async () => {
-        if (session?.user) {
-          const { data } = await authAPI.getCurrentUser();
-          if (data?.profile) {
-            setUser({
-              id: data.profile.id,
-              username: data.profile.username,
-              email: data.user?.email || '',
-              avatar: data.profile.avatar_url || '',
-              isAdmin: false,
-              subscribers: data.profile.subscriber_count,
-              verified: false,
-              joinDate: data.profile.created_at,
-              totalViews: 0,
-              totalVideos: 0,
-              isPremium: data.profile.is_premium
-            });
-          }
-        } else {
-          setUser(null);
-        }
-      })();
-    });
-
-    return () => {
-      subscription.unsubscribe();
-    };
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (identifier: string, password: string): Promise<boolean> => {
     setLoading(true);
     setError('');
     try {
-      const response = await authAPI.signIn(email, password);
-      if (response.success) {
-        const { data } = await authAPI.getCurrentUser();
-        if (data?.profile) {
-          setUser({
-            id: data.profile.id,
-            username: data.profile.username,
-            email: data.user?.email || '',
-            avatar: data.profile.avatar_url || '',
-            isAdmin: false,
-            subscribers: data.profile.subscriber_count,
-            verified: false,
-            joinDate: data.profile.created_at,
-            totalViews: 0,
-            totalVideos: 0,
-            isPremium: data.profile.is_premium
-          });
-        }
+      const response = await authAPIService.signIn(identifier, password);
+      if (response.success && response.data?.user) {
+        const userData = response.data.user;
+        setUser({
+          id: userData.id,
+          username: userData.username,
+          email: userData.email || '',
+          avatar: userData.avatar || '',
+          isAdmin: userData.isAdmin || false,
+          subscribers: userData.subscribers || 0,
+          verified: userData.verified || false,
+          joinDate: userData.joinDate || new Date().toISOString(),
+          totalViews: userData.totalViews || 0,
+          totalVideos: userData.totalVideos || 0,
+          isPremium: userData.isPremium || false
+        });
         return true;
       }
-      setError('ایمیل یا رمز عبور اشتباه است');
+      setError('ایمیل/نام کاربری یا رمز عبور اشتباه است');
       return false;
     } catch (error: any) {
       console.error('Login error:', error);
-      if (error.message?.includes('Invalid login credentials')) {
-        setError('ایمیل یا رمز عبور اشتباه است');
-      } else if (error.message?.includes('Email not confirmed')) {
-        setError('لطفاً ایمیل خود را تایید کنید');
+      if (error.message?.includes('Invalid') || error.message?.includes('credentials')) {
+        setError('ایمیل/نام کاربری یا رمز عبور اشتباه است');
+      } else if (error.message?.includes('not confirmed') || error.message?.includes('verified')) {
+        setError('لطفاً حساب کاربری خود را تایید کنید');
       } else {
         setError('خطا در ورود. لطفاً دوباره تلاش کنید');
       }
@@ -145,37 +114,35 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setLoading(true);
     setError('');
     try {
-      const response = await authAPI.signUp(
+      const response = await authAPIService.signUp(
         userData.email,
         userData.password,
         userData.username,
         userData.username
       );
-      if (response.success) {
-        const { data } = await authAPI.getCurrentUser();
-        if (data?.profile) {
-          setUser({
-            id: data.profile.id,
-            username: data.profile.username,
-            email: data.user?.email || '',
-            avatar: data.profile.avatar_url || '',
-            isAdmin: false,
-            subscribers: data.profile.subscriber_count,
-            verified: false,
-            joinDate: data.profile.created_at,
-            totalViews: 0,
-            totalVideos: 0,
-            isPremium: data.profile.is_premium
-          });
-        }
+      if (response.success && response.data?.user) {
+        const user = response.data.user;
+        setUser({
+          id: user.id,
+          username: user.username,
+          email: user.email || '',
+          avatar: user.avatar || '',
+          isAdmin: user.isAdmin || false,
+          subscribers: user.subscribers || 0,
+          verified: user.verified || false,
+          joinDate: user.joinDate || new Date().toISOString(),
+          totalViews: user.totalViews || 0,
+          totalVideos: user.totalVideos || 0,
+          isPremium: user.isPremium || false
+        });
         return true;
       }
       setError('خطا در ثبت‌نام');
       return false;
     } catch (error: any) {
       console.error('Register error:', error);
-      if (error.message?.includes('User already registered')) {
-        setError('این ایمیل قبلاً ثبت شده است');
+      if (error.message?.includes('already') || error.message?.includes('exists')) {
+        setError('این ایمیل یا نام کاربری قبلاً ثبت شده است');
       } else if (error.message?.includes('Invalid email')) {
         setError('ایمیل نامعتبر است');
       } else if (error.message?.includes('Password')) {
@@ -190,7 +157,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   };
 
   const logout = async () => {
-    await authAPI.signOut();
+    await authAPIService.signOut();
     setUser(null);
   };
 
