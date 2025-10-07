@@ -1,7 +1,14 @@
-/** 
- * @file Login.tsx
- * @description Landing/login page: brand header, feature grid, and authentication form.
- * Dark gradient background with a subtle decorative image. RTL layout and responsive.
+/**
+ * صفحه ورود به سیستم (Login Page)
+ * 
+ * این صفحه اصلی‌ترین نقطه ورود کاربران به پلتفرم ویتیمو است.
+ * کاربران می‌توانند با ایمیل یا شماره موبایل خود وارد شوند.
+ * 
+ * ویژگی‌های این صفحه:
+ * - پس‌زمینه گرادیانت زیبا با افکت موج
+ * - چیدمان دو ستونی: فرم ورود در سمت چپ و اطلاعات برند در سمت راست
+ * - طراحی کاملاً رسپانسیو برای موبایل، تبلت و دسکتاپ
+ * - پشتیبانی کامل از زبان فارسی (راست‌چین - RTL)
  */
 import React from 'react'
 import BrandHeader from '../components/auth/BrandHeader'
@@ -9,18 +16,31 @@ import FeatureGrid from '../components/auth/FeatureGrid'
 import AuthForm from '../components/auth/AuthForm'
 
 /**
- * @component Login
- * @description Assembles the full page with a two-column layout (left: form, right: brand + features).
+ * کامپوننت اصلی صفحه ورود
+ * 
+ * این کامپوننت سه بخش اصلی را کنار هم قرار می‌دهد:
+ * 1. BrandHeader: هدر برند با لوگو و شعار
+ * 2. FeatureGrid: نمایش ویژگی‌های پلتفرم
+ * 3. AuthForm: فرم ورود کاربر
  */
 const Login: React.FC = () => {
   return (
+    // کانتینر اصلی با جهت راست به چپ (RTL) برای زبان فارسی
     <div dir="rtl" className="relative min-h-screen overflow-hidden">
-      {/* Background gradient */}
+      
+      {/* 
+        پس‌زمینه گرادیانت رنگی
+        از رنگ‌های بنفش تیره استفاده می‌کند تا ظاهری حرفه‌ای و مدرن داشته باشد
+      */}
       <div
         className="absolute inset-0 bg-gradient-to-br from-[#1a1035] via-[#3c0f63] to-[#0f1024]"
         aria-hidden="true"
       />
-      {/* Wave pattern overlay */}
+      
+      {/* 
+        افکت موج در پس‌زمینه
+        یک الگوی موج ظریف که حس عمق و زیبایی به صفحه می‌دهد
+      */}
       <div
         className="absolute inset-0 opacity-20"
         style={{
@@ -31,19 +51,42 @@ const Login: React.FC = () => {
         aria-hidden="true"
       />
 
-      {/* Main content */}
+      {/* 
+        محتوای اصلی صفحه
+        با استفاده از grid system برای چیدمان رسپانسیو
+      */}
       <div className="relative z-10 mx-auto max-w-6xl px-4 py-10 lg:py-14">
+        
+        {/* 
+          شبکه دو ستونی (Grid Layout)
+          - در موبایل: یک ستون (عمودی)
+          - در دسکتاپ: دو ستون (افقی)
+        */}
         <div className="grid grid-cols-1 gap-10 items-center lg:grid-cols-2">
-          {/* Right column (in RTL): Brand + title + features */}
+          
+          {/* 
+            ستون راست (در RTL): نمایش برند و ویژگی‌ها
+            order-2 در دسکتاپ این بخش را در سمت راست قرار می‌دهد
+          */}
           <div className="text-right lg:order-2">
+            {/* هدر برند با لوگو و توضیحات */}
             <BrandHeader />
+            
+            {/* شبکه ویژگی‌های پلتفرم */}
             <div className="mt-8">
               <FeatureGrid />
             </div>
           </div>
 
-          {/* Left column (in RTL): Login form */}
+          {/* 
+            ستون چپ (در RTL): فرم ورود به سیستم
+            order-1 در دسکتاپ این بخش را در سمت چپ قرار می‌دهد
+          */}
           <div className="lg:order-1">
+            {/* 
+              فرم احراز هویت
+              کاربر می‌تواند با ایمیل یا شماره موبایل وارد شود
+            */}
             <AuthForm />
           </div>
         </div>
@@ -52,4 +95,5 @@ const Login: React.FC = () => {
   )
 }
 
+// صادرات کامپوننت برای استفاده در سایر قسمت‌های برنامه
 export default Login
