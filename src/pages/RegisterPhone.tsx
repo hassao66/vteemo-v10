@@ -39,7 +39,7 @@ const RegisterPhone: React.FC = () => {
       } else {
         setError(data.message || 'خطا در ارسال کد');
       }
-    } catch (err) {
+    } catch {
       setError('خطا در اتصال به سرور');
     } finally {
       setLoading(false);
@@ -89,7 +89,7 @@ const RegisterPhone: React.FC = () => {
       } else {
         setError(data.message || 'کد نامعتبر است');
       }
-    } catch (err) {
+    } catch {
       setError('خطا در اتصال به سرور');
     } finally {
       setLoading(false);

@@ -95,11 +95,12 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
       setError('ایمیل/نام کاربری یا رمز عبور اشتباه است');
       return false;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Login error:', error);
-      if (error.message?.includes('Invalid') || error.message?.includes('credentials')) {
+      const err = error as Error;
+      if (err.message?.includes('Invalid') || err.message?.includes('credentials')) {
         setError('ایمیل/نام کاربری یا رمز عبور اشتباه است');
-      } else if (error.message?.includes('not confirmed') || error.message?.includes('verified')) {
+      } else if (err.message?.includes('not confirmed') || err.message?.includes('verified')) {
         setError('لطفاً حساب کاربری خود را تایید کنید');
       } else {
         setError('خطا در ورود. لطفاً دوباره تلاش کنید');
@@ -139,13 +140,14 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       }
       setError('خطا در ثبت‌نام');
       return false;
-    } catch (error: any) {
+    } catch (error) {
       console.error('Register error:', error);
-      if (error.message?.includes('already') || error.message?.includes('exists')) {
+      const err = error as Error;
+      if (err.message?.includes('already') || err.message?.includes('exists')) {
         setError('این ایمیل یا نام کاربری قبلاً ثبت شده است');
-      } else if (error.message?.includes('Invalid email')) {
+      } else if (err.message?.includes('Invalid email')) {
         setError('ایمیل نامعتبر است');
-      } else if (error.message?.includes('Password')) {
+      } else if (err.message?.includes('Password')) {
         setError('رمز عبور باید حداقل ۶ کاراکتر باشد');
       } else {
         setError('خطا در ثبت‌نام. لطفاً دوباره تلاش کنید');
