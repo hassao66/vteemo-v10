@@ -132,7 +132,7 @@ const RegisterPhone: React.FC = () => {
               <h1 className="text-4xl font-bold bg-gradient-vitimo bg-clip-text text-transparent">
                 ویتیمو
               </h1>
-              <p className="text-gold-600 font-bold">Premium Video Platform</p>
+              <p className="text-gold-600 font-bold">پلتفرم ویدیویی حرفه‌ای</p>
             </div>
           </div>
         </div>
