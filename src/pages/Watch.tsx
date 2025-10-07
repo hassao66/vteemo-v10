@@ -354,19 +354,7 @@ const Watch: React.FC = () => {
             </div>
           </div>
 
-          {/* Premium Promotion */}
-          <div className="bg-gradient-gold rounded-xl p-6 text-gray-900">
-            <div className="flex items-center space-x-3 mb-4">
-              <Crown className="w-8 h-8" />
-              <h3 className="text-xl font-bold">ویتیمو پریمیوم</h3>
-            </div>
-            <p className="mb-4 opacity-90">
-              تماشای بدون تبلیغات، کیفیت 4K و محتوای اختصاصی
-            </p>
-            <button className="w-full bg-gray-900 text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition-colors">
-              آزمایش رایگان
-            </button>
-          </div>
+
         </div>
       </div>
     </div>

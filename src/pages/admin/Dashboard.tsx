@@ -43,7 +43,7 @@ const AdminDashboard: React.FC = () => {
 
   const revenueData = [
     { source: 'تبلیغات', amount: 4500000, percentage: 45 },
-    { source: 'اشتراک پریمیوم', amount: 3200000, percentage: 32 },
+    { source: 'اشتراک ویژه', amount: 3200000, percentage: 32 },
     { source: 'پاداش‌ها', amount: 1500000, percentage: 15 },
     { source: 'کمیسیون', amount: 800000, percentage: 8 },
   ];
@@ -158,7 +158,7 @@ const AdminDashboard: React.FC = () => {
         <div className="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-200 dark:border-gray-700">
           <div className="flex items-center space-x-3 mb-4">
             <Crown className="w-6 h-6 text-gold-500" />
-            <h3 className="font-bold text-gray-900 dark:text-white">اشتراک پریمیوم</h3>
+            <h3 className="font-bold text-gray-900 dark:text-white">اشتراک ویژه</h3>
           </div>
           <div className="space-y-3">
             <div className="flex justify-between">
@@ -339,7 +339,7 @@ const AdminDashboard: React.FC = () => {
             <div className="flex items-center space-x-3 p-4 bg-gold-50 dark:bg-gold-900/20 rounded-xl">
               <div className="w-3 h-3 bg-gold-500 rounded-full"></div>
               <div className="flex-1">
-                <p className="text-gray-900 dark:text-white font-medium">اشتراک پریمیوم خریداری شد</p>
+                <p className="text-gray-900 dark:text-white font-medium">اشتراک ویژه خریداری شد</p>
                 <p className="text-gray-600 dark:text-gray-400 text-sm">سارا احمدی • ۶ ساعت پیش</p>
               </div>
             </div>
