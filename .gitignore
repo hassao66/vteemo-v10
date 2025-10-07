@@ -7,9 +7,12 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Dependencies & builds
+node_modules/
+dist/
+dist-ssr/
+build/
+coverage/
 *.local
 
 # Editor directories and files
@@ -27,3 +30,16 @@ dist-ssr
 .env
 .env.local
 .env.*.local
+.env.*
+!.env.example
+.env.production
+
+# Platform artifacts
+.vercel/
+.netlify/
+
+# Package managers
+.pnpm-store/
+
+# Vite/Temp artifacts
+vite.config.ts.timestamp-*
