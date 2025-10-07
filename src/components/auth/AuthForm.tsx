@@ -1,6 +1,17 @@
-/** 
- * @file AuthForm.tsx
- * @description User login/register form with tabs and multiple login methods.
+/**
+ * کامپوننت فرم احراز هویت (Authentication Form)
+ * 
+ * این کامپوننت یک فرم یکپارچه برای ورود و ثبت‌نام ارائه می‌دهد.
+ * کاربر می‌تواند بین حالت‌های مختلف جابجا شود:
+ * - ورود با ایمیل
+ * - ورود با شماره موبایل
+ * - رفتن به صفحه ثبت‌نام
+ * 
+ * ویژگی‌ها:
+ * - رابط کاربری مدرن با افکت شیشه‌ای
+ * - تب‌های قابل تعویض برای ورود/ثبت‌نام
+ * - انتخاب روش ورود (ایمیل یا موبایل)
+ * - طراحی کاملاً رسپانسیو
  */
 import React, { useState } from 'react'
 import { Eye, EyeOff, Mail, Phone } from 'lucide-react'
@@ -8,45 +19,74 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../contexts/AuthContext'
 
 /**
- * @component AuthForm
- * @description Card-styled auth form with tabs for Login/Register and Email/Mobile methods.
+ * کامپوننت اصلی فرم احراز هویت
  */
 export default function AuthForm(): JSX.Element {
+  // هوک مسیریابی
   const navigate = useNavigate()
+  
+  // دریافت توابع احراز هویت از Context
   const { login, error: authError } = useAuth()
+  
+  // وضعیت نمایش/مخفی کردن رمز عبور
   const [showPassword, setShowPassword] = useState(false)
+  
+  // مقادیر فیلدهای فرم
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
+  
+  // وضعیت بارگذاری
   const [loading, setLoading] = useState(false)
+  
+  // وضعیت خطا
   const [error, setError] = useState<string | null>(null)
   
-  // Tab states
+  // حالت فرم: 'login' برای ورود، 'register' برای ثبت‌نام
   const [authMode, setAuthMode] = useState<'login' | 'register'>('login')
+  
+  // روش ورود: 'email' یا 'phone'
   const [loginMethod, setLoginMethod] = useState<'email' | 'phone'>('email')
 
   /**
-   * @function handleSubmit
-   * @description Submit handler that calls the actual login from AuthContext.
+   * تابع مدیریت ارسال فرم
+   * 
+   * بسته به حالت فعلی (ورود یا ثبت‌نام)، عملیات متفاوتی انجام می‌دهد:
+   * - حالت ورود: سعی در ورود کاربر به سیستم
+   * - حالت ثبت‌نام: هدایت به صفحه ثبت‌نام
    */
   const handleSubmit = async (e: React.FormEvent) => {
+    // جلوگیری از رفتار پیش‌فرض فرم
     e.preventDefault()
+    
+    // فعال کردن وضعیت بارگذاری
     setLoading(true)
+    
+    // پاک کردن خطای قبلی
     setError(null)
 
     if (authMode === 'login') {
+      // حالت ورود: تلاش برای ورود به سیستم
+      
+      // تعیین مقدار ورودی بسته به روش انتخابی (ایمیل یا موبایل)
       const loginValue = loginMethod === 'email' ? email : phone
+      
+      // فراخوانی تابع ورود
       const success = await login(loginValue, password)
       
       if (success) {
+        // در صورت موفقیت، هدایت به صفحه اصلی
         navigate('/')
       } else {
+        // در صورت خطا، نمایش پیام خطا
         setError(authError || 'اطلاعات ورود نادرست است.')
       }
     } else {
-      // Register mode - redirect to register page
+      // حالت ثبت‌نام: هدایت به صفحه ثبت‌نام مخصوص
       navigate('/register')
     }
+    
+    // غیرفعال کردن وضعیت بارگذاری
     setLoading(false)
   }
 
