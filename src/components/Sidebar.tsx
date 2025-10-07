@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Home, TrendingUp, Users, BookOpen, Clock, Heart, List,
-  Radio, Mic, Crown, Gift, Wallet, Music, Gamepad2, 
+  Radio, Mic, Gift, Wallet, Music, Gamepad2, 
   Trophy, Newspaper, GraduationCap, Lightbulb, Smile
 } from 'lucide-react';
 import { useVideo } from '../contexts/VideoContext';
@@ -37,7 +37,6 @@ const Sidebar: React.FC = () => {
   ];
 
   const premiumItems = [
-    { name: 'Premium', key: 'sidebar.premium', icon: Crown, to: '/premium', gradient: true },
     { name: 'Rewards', key: 'sidebar.rewards', icon: Gift, to: '/rewards', gold: true },
     { name: 'Wallet', key: 'sidebar.wallet', icon: Wallet, to: '/wallet', vitimo: true },
   ];

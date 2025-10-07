@@ -509,6 +509,23 @@ body {
   transform: translateY(0);
 }
 
+/* Mobile Bottom Navigation */
+.mobile-bottom-nav {
+  background: rgba(26, 26, 46, 0.98);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Hide scrollbar but keep functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* Mobile optimizations */
 @media (max-width: 640px) {
   .mobile-video-player {
