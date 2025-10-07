@@ -341,6 +341,21 @@ export const usersAPI = {
 
     if (error) throw error;
     return { success: true, data };
+  },
+
+  getUsers: async (params?: { limit?: number }) => {
+    let query = supabase
+      .from('profiles')
+      .select('*')
+      .order('subscriber_count', { ascending: false });
+
+    if (params?.limit) {
+      query = query.limit(params.limit);
+    }
+
+    const { data, error } = await query;
+    if (error) throw error;
+    return { success: true, data };
   }
 };
 
