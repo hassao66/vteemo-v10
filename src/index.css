@@ -2,6 +2,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap');
 
+/* Import responsive styles */
+@import './styles/responsive/mobile.css';
+@import './styles/components/bottom-nav.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

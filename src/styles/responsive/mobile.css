@@ -1,0 +1,112 @@
+/* Mobile-specific styles (≤768px) */
+
+/* Hide scrollbar on mobile chipbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Mobile touch optimization */
+@media (max-width: 768px) {
+  /* Larger tap targets */
+  button, a {
+    min-height: 44px;
+  }
+
+  /* Mobile padding adjustments */
+  .mobile-padding {
+    padding: 1rem;
+  }
+
+  /* Mobile spacing */
+  .mobile-spacing {
+    gap: 0.75rem;
+  }
+
+  /* Video grid on mobile - 2 columns */
+  .video-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+
+  /* Mobile card adjustments */
+  .video-card {
+    border-radius: 12px;
+  }
+
+  .video-card:hover {
+    transform: none; /* Disable hover transform on mobile */
+  }
+
+  /* Mobile header adjustments */
+  .vitimo-header {
+    padding: 0.75rem 1rem;
+  }
+
+  /* Mobile search bar */
+  .vitimo-header form {
+    display: none; /* Hide search on very small screens */
+  }
+
+  @media (min-width: 480px) {
+    .vitimo-header form {
+      display: flex;
+    }
+  }
+
+  /* Hide desktop elements */
+  .desktop-only {
+    display: none !important;
+  }
+
+  /* Show mobile elements */
+  .mobile-only {
+    display: block !important;
+  }
+
+  /* Mobile bottom padding for fixed bottom nav */
+  .mobile-bottom-padding {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+
+  /* Mobile modal adjustments */
+  .mobile-modal {
+    border-radius: 20px 20px 0 0;
+    max-height: 90vh;
+  }
+
+  /* Mobile font size adjustments */
+  .mobile-text-sm {
+    font-size: 0.875rem;
+  }
+
+  .mobile-text-xs {
+    font-size: 0.75rem;
+  }
+}
+
+/* iPhone SE and smaller */
+@media (max-width: 375px) {
+  .video-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .vitimo-header {
+    padding: 0.5rem 0.75rem;
+  }
+
+  /* Smaller logo on very small screens */
+  .vitimo-header img {
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Hide premium badge text on very small screens */
+  .vitimo-header .text-xs {
+    display: none;
+  }
+}
