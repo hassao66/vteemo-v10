@@ -3,9 +3,11 @@ import VideoCard from '../components/VideoCard';
 import LiveCard from '../components/LiveCard';
 import PodcastCard from '../components/PodcastCard';
 import SuggestedChannels from '../components/SuggestedChannels';
+import Chipbar from '../components/responsive/Chipbar';
 import { useVideo } from '../contexts/VideoContext';
 import { useLive } from '../contexts/LiveContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useIsMobile } from '../hooks/useBreakpoint';
 import { Radio, Mic, TrendingUp } from 'lucide-react';
 import { videosAPI, liveAPI } from '../services/supabase-api';
 import type { Video, LiveStream } from '../lib/supabase';
@@ -13,6 +15,7 @@ import type { Video, LiveStream } from '../lib/supabase';
 const Home: React.FC = () => {
   const { searchQuery, selectedCategory } = useVideo();
   const { t } = useLanguage();
+  const isMobile = useIsMobile();
   const [activeTab, setActiveTab] = useState<'videos' | 'live' | 'podcasts'>('videos');
   const [videos, setVideos] = useState<Video[]>([]);
   const [liveStreams, setLiveStreams] = useState<LiveStream[]>([]);
@@ -62,6 +65,9 @@ const Home: React.FC = () => {
 
   return (
     <div className="space-y-6">
+      {/* Chipbar - Mobile only */}
+      {isMobile && <Chipbar />}
+
       {/* Suggested Channels Section */}
       <SuggestedChannels />
 

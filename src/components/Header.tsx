@@ -49,7 +49,7 @@ const Header: React.FC = () => {
         <div className={`flex items-center space-x-4 ${isRTL ? 'space-x-reverse' : ''}`}>
           <button 
             onClick={() => setShowMobileMenu(!showMobileMenu)}
-            className="p-2 hover:bg-dark-tertiary rounded-lg transition-colors lg:hidden"
+            className="hidden p-2 hover:bg-dark-tertiary rounded-lg transition-colors lg:hidden"
           >
             <Menu className="w-5 h-5 text-white" />
           </button>
@@ -93,10 +93,10 @@ const Header: React.FC = () => {
 
         {/* Right Side Actions */}
         <div className={`flex items-center space-x-2 lg:space-x-4 ${isRTL ? 'space-x-reverse' : ''}`}>
-          {/* Theme Toggle */}
+          {/* Theme Toggle - Hidden on mobile */}
           <button
             onClick={toggleTheme}
-            className="p-2 hover:bg-dark-tertiary rounded-lg transition-colors"
+            className="hidden md:flex p-2 hover:bg-dark-tertiary rounded-lg transition-colors"
             title="تغییر تم"
           >
             {isDarkMode ? (
@@ -106,7 +106,9 @@ const Header: React.FC = () => {
             )}
           </button>
 
-          <LanguageSelector />
+          <div className="hidden md:block">
+            <LanguageSelector />
+          </div>
           
           {isAuthenticated ? (
             <>
@@ -152,10 +154,10 @@ const Header: React.FC = () => {
                 <span className="font-medium text-sm">{t('header.live')}</span>
               </Link>
               
-              {/* Upload */}
+              {/* Upload - Hidden on mobile, shown in bottom nav */}
               <Link
                 to="/upload"
-                className="p-2 hover:bg-dark-tertiary rounded-lg transition-colors"
+                className="hidden md:flex p-2 hover:bg-dark-tertiary rounded-lg transition-colors"
                 title={t('header.upload')}
               >
                 <Upload className="w-5 h-5 text-white" />
