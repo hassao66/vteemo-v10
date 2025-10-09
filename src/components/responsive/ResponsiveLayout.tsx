@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import { useIsMobile } from '../../hooks/useBreakpoint';
-import MobileBottomNav from './MobileBottomNav';
+import ImprovedMobileBottomNav from './ImprovedMobileBottomNav';
 
 interface ResponsiveLayoutProps {
   children: ReactNode;
@@ -12,7 +12,7 @@ const ResponsiveLayout: React.FC<ResponsiveLayoutProps> = ({ children }) => {
   return (
     <>
       {children}
-      {isMobile && <MobileBottomNav />}
+      {isMobile && <ImprovedMobileBottomNav />}
     </>
   );
 };
