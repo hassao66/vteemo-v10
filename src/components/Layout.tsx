@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
 import Header from './Header';
-import Sidebar from './Sidebar';
+import ImprovedSidebar from './ImprovedSidebar';
 import ResponsiveLayout from './responsive/ResponsiveLayout';
 import { useIsMobile } from '../hooks/useBreakpoint';
 
@@ -16,7 +16,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className="vitimo-container">
         <Header />
         <div className="flex">
-          {!isMobile && <Sidebar />}
+          {!isMobile && <ImprovedSidebar />}
           <main className={`flex-1 p-6 bg-primary ${isMobile ? 'pb-20' : ''}`}>
             {children}
           </main>
