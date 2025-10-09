@@ -180,7 +180,7 @@ const ImprovedSidebar: React.FC = () => {
   };
 
   return (
-    <aside className="w-64 h-screen sticky top-0 bg-dark-secondary border-r border-dark-tertiary overflow-hidden flex flex-col">
+    <div className="w-full h-full bg-dark-secondary border-r border-dark-tertiary overflow-hidden flex flex-col">
       <nav className="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-6">
         {sections.map((section, index) => {
           const isExpanded = expandedSections[Object.keys(expandedSections)[index]] ?? section.defaultOpen;
@@ -245,7 +245,7 @@ const ImprovedSidebar: React.FC = () => {
           <p className="text-vitimo-400">نسخه 2.0</p>
         </div>
       </div>
-    </aside>
+    </div>
   );
 };
 
