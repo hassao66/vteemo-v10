@@ -7,7 +7,7 @@ import { WalletProvider } from './contexts/WalletContext';
 import { LiveProvider } from './contexts/LiveContext';
 import Layout from './components/Layout';
 import AdminLayout from './components/admin/AdminLayout';
-import Home from './pages/Home';
+import ImprovedHome from './pages/ImprovedHome';
 import Watch from './pages/Watch';
 import Upload from './pages/Upload';
 import Profile from './pages/Profile';
@@ -56,7 +56,7 @@ function App() {
                   <Route path="/*" element={
                     <Layout>
                       <Routes>
-                        <Route path="/" element={<Home />} />
+                        <Route path="/" element={<ImprovedHome />} />
                         <Route path="/watch/:id" element={<Watch />} />
                         <Route path="/upload" element={<Upload />} />
                         <Route path="/profile/:id" element={<Profile />} />

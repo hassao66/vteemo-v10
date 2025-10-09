@@ -5,6 +5,7 @@
 /* Import responsive styles */
 @import './styles/responsive/mobile.css';
 @import './styles/components/bottom-nav.css';
+@import './styles/responsive.css';
 
 @tailwind base;
 @tailwind components;
