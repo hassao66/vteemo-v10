@@ -1,0 +1,108 @@
+/* Mobile Navigation Styles */
+
+/* Safe Area for devices with notch */
+@supports (padding: max(0px)) {
+  .safe-area-bottom {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+}
+
+/* Pulse Glow Animation for Premium Button */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Backdrop Blur Enhancement */
+.backdrop-blur-nav {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Active Tap Effect */
+.tap-effect {
+  transition: transform 0.1s ease-in-out;
+}
+
+.tap-effect:active {
+  transform: scale(0.95);
+}
+
+/* Hide on keyboard open (optional) */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hide-on-keyboard {
+    display: none;
+  }
+}
+
+/* Custom Shadow Effects */
+.shadow-vitimo {
+  box-shadow: 0 10px 25px rgba(153, 102, 255, 0.3);
+}
+
+.shadow-vitimo-lg {
+  box-shadow: 0 15px 35px rgba(153, 102, 255, 0.5);
+}
+
+/* Smooth transitions */
+.mobile-nav-transition {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Active indicator animation */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.active-indicator {
+  animation: slideDown 0.3s ease-out;
+}
+
+/* Floating button entrance */
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.float-button {
+  animation: floatIn 0.4s ease-out;
+}
+
+/* Badge pulse animation */
+@keyframes badgePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+  }
+}
+
+.badge-pulse {
+  animation: badgePulse 1.5s ease-in-out infinite;
+}
